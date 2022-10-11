@@ -89,6 +89,7 @@ export interface RangeDatepickerProps extends DatepickerProps {
   id?: string;
   name?: string;
   usePortal?: boolean;
+  closeOnSelected?: boolean
 }
 
 const DefaultConfigs: CalendarConfigs = {
@@ -105,6 +106,7 @@ export const RangeDatepicker: React.FC<RangeDatepickerProps> = ({
   name,
   usePortal,
   defaultIsOpen = false,
+  closeOnSelected = false,
   ...props
 }) => {
   const { selectedDates, minDate, maxDate, onDateChange, disabled } = props;
@@ -134,6 +136,7 @@ export const RangeDatepicker: React.FC<RangeDatepickerProps> = ({
           newDates.unshift(date);
         }
         onDateChange(newDates);
+        if(closeOnSelected) onClose();
       } else if (newDates.length === 2) {
         onDateChange([date]);
       }
